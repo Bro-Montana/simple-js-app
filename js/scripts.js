@@ -17,9 +17,9 @@ let pokemonList = [
 // Loop for list of pokemon and their attributes
 for (let i=0; i < pokemonList.length; i++)
     if (pokemonList[i].height > 4) {
-    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - Wow, you are pretty tall!");
+    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - Wow, you are pretty tall!" + "<br>");
   } else if (pokemonList[i].height < 4) {
-    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - Aww, you are short!")
+    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - Aww, you are short!" + "<br>")
   } else {
-    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - You can be short or tall!")
+    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - You can be short or tall!" + "<br>")
   }
