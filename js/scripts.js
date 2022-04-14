@@ -1,3 +1,4 @@
+
 let pokemonList = [
   {
     name: 'Bulbasuar',
@@ -14,6 +15,7 @@ let pokemonList = [
   }
 ];
 
+
 /* Loop for list of pokemon and their attributes
 for (let i=0; i < pokemonList.length; i++)
     if (pokemonList[i].height > 4) {
@@ -26,9 +28,7 @@ for (let i=0; i < pokemonList.length; i++)
 */
 
 // 'forEach' loop replacing 'for' loop
-pokemonList.forEach(function(pokemon) {
-  document.write("<p>" + "name: " + pokemon.name + "<br>" + " height: " +
-    pokemon.height + "<br>" + " types: " + pokemon.types + "</p>");
-
-  console.log("name: " + pokemon.name + " height: " + pokemon.height + " types: " + pokemon.types);
-})
+pokemonList.forEach (function (pokemon) {
+  document.write(pokemon.name + " " + pokemon.height + " " + pokemon.types + "<br>");
+  console.log(pokemon.name + " " + pokemon.height + " " + pokemon.types + "<br>");
+});
