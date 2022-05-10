@@ -1,34 +1,47 @@
-
-let pokemonList = [
-  {
-    name: 'Bulbasuar',
-    height: 7,
-    types: ['grass','poison']
-  }, {
-    name: 'Charizard',
-    height: 4,
-    types: ['fire', 'flying']
-  }, {
-    name: 'Squirtle',
-    height: 1,
-    types: ['water']
+// IIFE including pokemonList variable
+let pokemonRepository = (function () {
+  let pokemonList = [
+    {
+      name: 'Bulbasuar',
+      height: 7,
+      types: ['grass','poison']
+    }, {
+      name: 'Charizard',
+      height: 4,
+      types: ['fire', 'flying']
+    }, {
+      name: 'Squirtle',
+      height: 1,
+      types: ['water']
+    }
+  ];
+// Add pokemon to pokemonList array
+  function add(pokemon) {
+      pokemonList.push(pokemon);
   }
-];
+// Return of array of problem
+  function getAll() {
+      return pokemonList;
+  }
+// My public functions
+  return {
+    add: add,
+    getAll: getAll
+  };
 
+})();
 
-/* Loop for list of pokemon and their attributes
-for (let i=0; i < pokemonList.length; i++)
-    if (pokemonList[i].height > 4) {
-    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - Wow, you are pretty tall!" + "<br>");
-  } else if (pokemonList[i].height < 4) {
-    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - Aww, you are short!" + "<br>")
+// Loop for name/height and checks if big/small/both with conditional
+pokemonRepository.getAll().forEach(function(pokemon) {
+  document.write(`<p>${pokemon.name} (height:
+  ${pokemon.height})`);
+
+  if (pokemon.height > 4) {
+    document.write(` - Wow, you are pretty tall!</p>`);
+  } else if (pokemon.height < 4) {
+    document.write(` - Aww, you are short!</p>`);
   } else {
-    document.write(pokemonList[i].name + " height: " + pokemonList[i].height + " - You can be short or tall!" + "<br>")
+    document.write(` - You can be short or tall!</p>`);
   }
-*/
 
-// 'forEach' loop replacing 'for' loop
-pokemonList.forEach (function (pokemon) {
-  document.write(pokemon.name + " " + pokemon.height + " " + pokemon.types + "<br>");
-  console.log(pokemon.name + " " + pokemon.height + " " + pokemon.types + "<br>");
 });
