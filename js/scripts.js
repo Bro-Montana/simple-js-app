@@ -1,7 +1,7 @@
 // IIFE for global variables
 let pokemonRepository = (function () {
 
-  // nested variables
+  // nested variable
   let pokemonList = [
     {
       name: 'Bulbasuar',
@@ -29,7 +29,7 @@ let pokemonRepository = (function () {
 
   // Verifies added pokemon, adds pokemon if valid / alerts if invalid
     function addv(item) {
-        //Checks input for validity
+  //Checks input for validity
         if (typeof item === 'object' && 'name') {
             add(item);
         }
@@ -39,15 +39,9 @@ let pokemonRepository = (function () {
     }
 
 
-  return {
-    add: add,
-    getAll: getAll
-    };
 
-})();
 
-// forEach loop for pokemon
-pokemonRepository.getAll().forEach (function (pokemon) {
+  function addListItem(pokemon) {
   // list and button for index
   let list = document.querySelector('.pokemon-list');
   let listItem = document.createElement('li');
@@ -56,6 +50,31 @@ pokemonRepository.getAll().forEach (function (pokemon) {
     button.classList.add('pokemon-list');
     listItem.appendChild(button);
     list.appendChild(listItem);
+  // console logs pokemon when clicked
+    advancedPokeButton (button, pokemon);
+  }
+  // event listener for pokemon buttons
+  function advancedPokeButton (button, pokemon) {
+    button.addEventListener('click', function () {
+      showDetails(pokemon);
+    });
+  };
+  // shows details for pokemon in list
+  function showDetails (pokemon) {
+    console.log(pokemon);
+  }
+
+  return {
+    add: add,
+    addv: addv,
+    getAll: getAll,
+    addListItem: addListItem,
+    };
+})();
 
 
+
+// forEach loop for pokemon
+pokemonRepository.getAll().forEach (function (pokemon) {
+  pokemonRepository.addListItem(pokemon);
 });
