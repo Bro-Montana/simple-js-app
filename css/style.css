@@ -1,10 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     /* Color Scheme */
-    background-color: white;
+    background-color: black;
     color: black;
     font-family: 'Courier New', Courier, monospace;
     font-size: 50px;
     text-align: center;
+
 }
 
 /* Styling for title */
@@ -15,7 +20,7 @@ h1 {
 
 /* Style for buttons (https://getcssscan.com/css-buttons-examples) */
 
-.pokemon-list, body {
+.pokemon-list, h1 {
   padding: 0.6em 2em;
   border: none;
   outline: none;
@@ -30,7 +35,7 @@ h1 {
   touch-action: manipulation;
 }
 
-.pokemon-list:before {
+.pokemon-list:before, h1:before {
   content: "";
   background: linear-gradient(
     45deg,
@@ -58,7 +63,7 @@ h1 {
   border-radius: 10px;
 }
 
-@keyframes glowing-pokemon-list {
+@keyframes glowing:pokemon-list {
   0% {
     background-position: 0 0;
   }
@@ -70,7 +75,19 @@ h1 {
   }
 }
 
-.pokemon-list:after {
+/* @keyframes glowing:h1 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+*/
+.pokemon-list:after, h1:after {
   z-index: -1;
   content: "";
   position: absolute;
@@ -85,4 +102,51 @@ h1 {
  /* Styling for unordered list */
 ul {
     list-style-type: none;
-} 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 0;
+}
+
+li {
+    display: flex;
+    justify-content: center;
+    flex: 0 1 auto;
+}
+
+/* For Tablet View */
+@media screen and (min-device-width: 768px)
+and (max-device-width: 1024px) {
+  .pokemon-list, {
+    width: 400px;
+    height: 400px;
+    background-color: orange;
+    color: black;
+  }
+}
+
+/* For Mobile Portrait View */
+@media screen and (max-device-width: 480px)
+and (orientation: portrait) {
+  .pokemon-list, {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* For Mobile Landscape View */
+@media screen and (max-device-width: 640px)
+and (orientation: landscape) {
+  .pokemon-list, {
+    width: 400px;
+    height: 200px;
+  }
+}
+
+/* For Mobile Phones Portrait or Landscape View */
+@media screen and (max-device-width: 640px) {
+  .pokemon-list, {
+    width: 400px;
+    height: 200px;
+  }
+}
