@@ -4,7 +4,7 @@ let pokemonRepository = (function () {
   // pokemon array and api link to pokemon list
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-
+  let currentModalPokemon = null;
 
   function getAll() {
       return pokemonList;
@@ -97,6 +97,7 @@ let pokemonRepository = (function () {
 
   // opens modal with pokemon information
    function showModal(pokemon) {
+       currentModalPokemon = pokemon;
        let modalContainer = document.querySelector('#modal-container');
 
        // clear all existing modal content
@@ -104,6 +105,7 @@ let pokemonRepository = (function () {
 
        let modal = document.createElement('div');
        modal.classList.add('modal');
+       modal.setAttribute('pointer-action','none');
 
        // adds close button for modal with event listener
        let closeButtonElement = document.createElement('button');
@@ -144,6 +146,7 @@ let pokemonRepository = (function () {
    function hideModal() {
        let modalContainer = document.querySelector('#modal-container');
        modalContainer.classList.remove('is-visible');
+       currentModalPokemon = null;
    }
 
     // closes modal when escape key is pressed
@@ -165,7 +168,44 @@ let pokemonRepository = (function () {
        }
    });
 
+   //variables for pointer events
+     let startX = null;
+     let isSwiping = false;
 
+     // takes note of start position of pointer
+     function handleStart(e) {
+         isSwiping = true;
+         let x = e.pageX; // X-coordinate of click/touch
+         startX = x;
+     }
+
+     // checks if pointer traveled enough distance to swap between pokemon modals
+     function handleEnd(e) {
+       isSwiping = false;
+       if (Math.abs(e.pageX - startX) > 200) {
+           // swipe left: go next pokemon
+           if(e.pageX-startX < 0) {
+               let index = pokemonList.indexOf(currentModalPokemon);
+               // if index is last dont go next pokemon
+               index === (pokemonList.length - 1) ? null : showDetails(pokemonList[index+1]);
+               startX = null;
+           }
+            // swipe right: go previous pokemon
+           else if(e.pageX - startX > 0) {
+               let index = pokemonList.indexOf(currentModalPokemon);
+               // if index is first dont go next pokemon
+               index === 0 ? null : showDetails(pokemonList[index-1]);
+               startX = null;
+           }
+       }
+       else {
+           startX = null;
+       }
+   }
+
+   // event listeners for swiping between data items
+   modalContainer.addEventListener("pointerdown", handleStart);
+   modalContainer.addEventListener("pointerup", handleEnd);
 
   // return statements for IIFE
   return {
