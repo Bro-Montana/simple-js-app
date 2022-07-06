@@ -10,8 +10,30 @@
 
   <body>
       <h1>Pokemon Index</h1>
-      <ul class='pokemon-list'></ul>
 
+
+      <!-- form for email/ password -->
+      <form id='register-form'>
+
+      <div class='input-wrapper'>
+        <label for='email'>E-mail:</label>
+        <input id='email'>
+      </div>
+
+      <div class='input-wrapper'>
+        <label for='password'>Password:</label>
+        <input id='password' type='password'>
+      </div>
+
+      <button>Register</button>
+
+    </form>
+
+    <ul class='pokemon-list'></ul>
+    <div id='modal-container'></div>
+
+
+    <!-- script files -->
     <script src="js/polyfill.js"></script>
     <script src="js/fetch.umd.js"></script>
     <script src="js/scripts.js"></script>
