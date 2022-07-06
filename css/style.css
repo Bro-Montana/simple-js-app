@@ -21,7 +21,7 @@ h1 {
 
 /* Style for buttons (https://getcssscan.com/css-buttons-examples) */
 
-.pokemon-button, h1, button, form {
+.pokemon-button, button, form, .modal {
   padding: 0.6em 2em;
   border: none;
   outline: none;
@@ -36,7 +36,7 @@ h1 {
   touch-action: manipulation;
 }
 
-.pokemon-button:before, h1:before, button:before, form:before {
+.pokemon-button:before, button:before, form:before, .modal:before {
   content: "";
   background: linear-gradient(
     45deg,
@@ -77,7 +77,7 @@ h1 {
 }
 
 
-.pokemon-button:after, h1:after, button:after, form:after {
+.pokemon-button:after, button:after, form:after, .modal:after {
   z-index: -1;
   content: "";
   position: absolute;
@@ -171,6 +171,7 @@ and (orientation: landscape) {
     width: 100%;
     height: 100%;
     background: inherit;
+    touch-action: none;
 
   /* to show it above other content */
     z-index: 999;
@@ -186,6 +187,7 @@ and (orientation: landscape) {
 }
 
 #modal-container.is-visible {
+
   display: flex;
 }
 
@@ -198,9 +200,10 @@ and (orientation: landscape) {
   padding: 15px;
   width: 100%;
   max-width: 700px;
-  text-align: left;
+  /* text-align: left; */
   border-radius: 10px;
-  text-align: center;
+  text-align: center
+  touch-action: none;
 }
 
 .modal-close {
