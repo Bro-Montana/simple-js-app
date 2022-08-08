@@ -3,8 +3,9 @@ let pokemonRepository = (function () {
 
   // pokemon array and api link to pokemon list
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1126';
   let currentModalPokemon = null;
+  let modalContainer = document.querySelector('#pokemonModal')
 
   function getAll() {
       return pokemonList;
@@ -26,25 +27,55 @@ let pokemonRepository = (function () {
         }
     }
 
+    //finds pokemons in the array that contains the characters in the input
+      function find(inputName) {
+          //checks if input is a string
+          if (typeof inputName !== 'string') {
+              alert('Inputted pokemon name is not a string!')
+              return;
+          }
+          //find pokemons in our array (convert everything to lowercase to ignore case sensitivity)
+          let found = pokemonList.filter(function (pokemon) {
+              let uppercaseListName = pokemon.name.toUpperCase();
+              let uppercaseInputName = inputName.toUpperCase();
+              return uppercaseListName.includes(uppercaseInputName);
+          });
+
+              return found;
+          }
 
 
 
   function addListItem(pokemon) {
-  // list and button for index
-  let list = document.querySelector('.pokemon-list');
+  // selects unordered list
+  let container = document.querySelector('.container-fluid');
 
-  // button and list element
-  let listItem = document.createElement('li');
+  //create row div, col div, and button
+  let rowdiv = document.createElement('div');
+  let coldiv = document.createElement('div');
   let button = document.createElement('button');
 
-  //style for button and text
+  //button and list
+  //set bootstrap classs and text to divs and button
+  rowdiv.classList.add('row', 'align-content-center', 'list-group-item', 'bg-dark');
+  rowdiv.setAttribute('style', 'height: 100px');
+  coldiv.classList.add('col', 'd-flex', 'justify-content-center', 'm-2');
   button.innerText = pokemon.name;
-  button.classList.add('pokemon-button');
+  button.classList.add('btn', 'btn-danger', 'btn-lg', 'w-50');
+  button.setAttribute('type', 'button');
+  button.setAttribute('style', 'height: 75px');
 
-  //append button to list and list item to unordered list
-  listItem.appendChild(button);
-  list.appendChild(listItem);
-  // console logs pokemon when clicked
+  //set button to open bootstrap modal
+  button.setAttribute('data-toggle', 'modal');
+  button.setAttribute('data-target', '#pokemonModal');
+
+
+  //append button to col div, col div to row div, and row div to container
+  coldiv.appendChild(button);
+  rowdiv.appendChild(coldiv);
+  container.appendChild(rowdiv);
+
+  // pokemon details when clicked
     advancedPokeButton (button, pokemon);
   }
 
@@ -55,7 +86,7 @@ let pokemonRepository = (function () {
     });
   }
 
-  // event listener for pokemon buttons
+  // event listener for pokemon button
   function advancedPokeButton (button, pokemon) {
     button.addEventListener('click', function () {
       showDetails(pokemon);
@@ -85,9 +116,12 @@ let pokemonRepository = (function () {
       return response.json();
     }).then(function (details) {
       // pokemon item details
-      item.imageUrl = details.sprites.front_default;
+      item.frontImage = details.sprites.front_default;
+      item.backImage = details.sprites.back_default;
       item.height = details.height;
+      item.weight = details.weight;
       item.types = details.types;
+      item.abilities = details.abilities;
     }).catch(function (e) {
       console.error(e);
     });
@@ -97,76 +131,44 @@ let pokemonRepository = (function () {
 
   // opens modal with pokemon information
    function showModal(pokemon) {
-       currentModalPokemon = pokemon;
-       let modalContainer = document.querySelector('#modal-container');
-
-       // clear all existing modal content
-       modalContainer.innerHTML = '';
-
-       let modal = document.createElement('div');
-       modal.classList.add('modal');
-       modal.setAttribute('pointer-action','none');
-
-       // adds close button for modal with event listener
-       let closeButtonElement = document.createElement('button');
-       closeButtonElement.classList.add('modal-close');
-       closeButtonElement.innerText = 'Close';
-       closeButtonElement.addEventListener('click', hideModal);
-
-       // title as pokemon name
-       let titleElement = document.createElement('h1');
-       titleElement.innerText = pokemon.name;
-
-       // information displayed is sprite, height and types
-       let imageContent = document.createElement('img');
-       imageContent.setAttribute('src', pokemon.imageUrl);
-       let heightElement = document.createElement('p');
-       heightElement.innerText = 'height: ' + pokemon.height;
-       let typeArray = pokemon.types.map(function (index) {
-           return index.type.name;
-       })
-       let typeElement = document.createElement('p');
-       typeElement.innerText = 'type:'
-       typeArray.forEach(function (type) {
-           typeElement.innerText += ' ' + type;
-       });
 
 
-       modal.appendChild(closeButtonElement);
-       modal.appendChild(titleElement);
-       modal.appendChild(imageContent);
-       modal.appendChild(heightElement);
-       modal.appendChild(typeElement);
-       modalContainer.appendChild(modal);
+       // modal nodes
+       let modalTitle = $(".modal-title");
+       let modalBody = $(".modal-body");
+       let modalHeader = $(".modal-header");
+       // currentModalPokemon = pokemon;
 
-       modalContainer.classList.add('is-visible');
+       //clear existing content
+       // modalHeader.empty();
+       modalTitle.empty();
+       modalBody.empty();
+
+      // append name to title
+      let nameElement = $("<h1>" + pokemon.name + "</h1>");
+
+      // get all details about pokemon
+      let frontImage = $('<img class="modal-img" style="width:50%">');
+      frontImage.attr("src", pokemon.frontImage);
+      let backImage = $('<img class="modal-img" style="width:50%">');
+      backImage.attr("src", pokemon.backImage);
+      let heightElement = $("<p>" + "height: " + pokemon.height + "</p>");
+      let weightElement = $("<p>" + "weight: " + pokemon.weight + "</p>");
+      let typeElement = $("<p>" + "types: " + pokemon.types + "</p>");
+      let abilitiesElement = $("<p>" + "abilities: " + pokemon.abilities + "</p>");
+
+      // append all pokemon details to modal body
+      modalTitle.append(nameElement);
+      modalBody.append(frontImage);
+      modalBody.append(backImage);
+      modalBody.append(heightElement);
+      modalBody.append(weightElement);
+      modalBody.append(typeElement);
+      modalBody.append(abilitiesElement);
+
    }
 
-   // hides modal
-   function hideModal() {
-       let modalContainer = document.querySelector('#modal-container');
-       modalContainer.classList.remove('is-visible');
-       currentModalPokemon = null;
-   }
 
-    // closes modal when escape key is pressed
-   let modalContainer = document.querySelector('#modal-container');
-   window.addEventListener('keydown', function (e) {
-       let modalContainer = document.querySelector('#modal-container');
-       if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-           hideModal();
-       }
-   });
-
-   // closes modal when user clicks outside of modal
-   modalContainer.addEventListener('click', (e) => {
-       // Since this is also triggered when clicking INSIDE the modal
-       // We only want to close if the user clicks directly on the overlay
-       let target = e.target;
-       if (target === modalContainer) {
-         hideModal();
-       }
-   });
 
    //variables for pointer events
      let startX = null;
@@ -203,14 +205,38 @@ let pokemonRepository = (function () {
        }
    }
 
-   // event listeners for swiping between data items
+   // // event listeners for swiping between data items
    modalContainer.addEventListener("pointerdown", handleStart);
    modalContainer.addEventListener("pointerup", handleEnd);
+   // event listener for search bar
+    let search_input = document.querySelector('input[type="text"]');
+    search_input.addEventListener('input', function() {
+        let container = document.querySelector('.container-fluid');
+        //if input value is empty show all pokemon
+        if(search_input.value === '') {
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            pokemonRepository.getAll().forEach(function (pokemon) {
+                pokemonRepository.addListItem(pokemon);
+            });
+        }
+        //if input value is not empty show all pokemon that contains input
+        else {
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            find(search_input.value).forEach(function (pokemon) {
+                pokemonRepository.addListItem(pokemon);
+            });
+        }
+    });
 
   // return statements for IIFE
   return {
-    addv: addv,
     getAll: getAll,
+    addv: addv,
+    find: find,
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails
@@ -225,77 +251,3 @@ pokemonRepository.loadList().then(function () {
     pokemonRepository.addListItem(pokemon);
   });
 });
-
-(function() {
-  let form = document.querySelector('#register-form');
-  let emailInput = document.querySelector('#email');
-  let passwordInput = document.querySelector('#password');
-
-  function showErrorMessage(input, message) {
-    let container = input.parentElement; // The .input-wrapper
-
-    // Remove an existing error
-    let error = container.querySelector('.error-message');
-    if (error) {
-      container.removeChild(error);
-    }
-
-    // Now add the error, if the message is not empty
-    if (message) {
-      let error = document.createElement('div');
-      error.classList.add('error-message');
-      error.innerText = message;
-      container.appendChild(error);
-    }
-  }
-
-  function validateEmail() {
-    let value = emailInput.value;
-
-    if (!value) {
-      showErrorMessage(emailInput, 'Got to have a email, fam.');
-      return false;
-    }
-
-    if (value.indexOf('@') === -1) {
-      showErrorMessage(emailInput, 'What are we doing? Email must be valid.');
-      return false;
-    }
-
-    showErrorMessage(emailInput, null);
-    return true;
-  }
-
-  function validatePassword() {
-    let value = passwordInput.value;
-
-    if (!value) {
-      showErrorMessage(passwordInput, 'Got to have a password, fam.');
-      return false;
-    }
-
-    if (value.length < 8) {
-      showErrorMessage(passwordInput, 'Stretch that password to 8 or more characters, big dog.');
-      return false;
-    }
-
-    showErrorMessage(passwordInput, null);
-    return true;
-  }
-
-  function validateForm() {
-    let isValidEmail = validateEmail();
-    let isValidPassword = validatePassword();
-    return isValidEmail && isValidPassword;
-  }
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault(); // Do not submit to the server
-    if (validateForm()) {
-      alert('Success!');
-    }
-  });
-
-  emailInput.addEventListener('input', validateEmail);
-  passwordInput.addEventListener('input', validatePassword);
-})();
