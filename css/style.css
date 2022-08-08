@@ -1,27 +1,40 @@
-* {
+/* * {
     box-sizing: border-box;
-}
+} */
 
-body {
+/* body { */
     /* Color Scheme */
-    background-color: black;
-    color: white;
+    /* background-color: black;
+    color: white; */
     font-family: 'Courier New', Courier, monospace;
-    font-size: 50px;
-    text-align: center;
+    /* font-size: 50px;
+    text-align: center; */
 
 }
 
 /* Styling for title */
-h1 {
-    font-size: 75px;
+/* h1 {
+    /* font-size: 75px;
     font-weight: 300;
     text-decoration: none;
+    text: center;
+} */
+
+.btn {
+  font-size: 30px;
 }
 
+/* set required pointer event properties for swiping between pokemon */
+#pokemonModal {
+    touch-action: none;
+}
+
+.modal-dialog {
+    touch-action: none;
+}
 /* Style for buttons (https://getcssscan.com/css-buttons-examples) */
 
-.pokemon-button, button, form, .modal {
+button {
   padding: 0.6em 2em;
   border: none;
   outline: none;
@@ -36,7 +49,7 @@ h1 {
   touch-action: manipulation;
 }
 
-.pokemon-button:before, button:before, form:before, .modal:before {
+button:before {
   content: "";
   background: linear-gradient(
     45deg,
@@ -64,7 +77,7 @@ h1 {
   border-radius: 10px;
 }
 
-@keyframes glowing:pokemon-button {
+@keyframes glowing: {
   0% {
     background-position: 0 0;
   }
@@ -77,7 +90,7 @@ h1 {
 }
 
 
-.pokemon-button:after, button:after, form:after, .modal:after {
+button:after {
   z-index: -1;
   content: "";
   position: absolute;
@@ -89,14 +102,16 @@ h1 {
   border-radius: 10px;
 }
 
-.pokemon-button:hover{
+button:hover{
     color:green;
     background-color:black;
     cursor: pointer;
 }
 
+
+
  /* Styling for unordered list */
-ul {
+/* ul {
     list-style-type: none;
     display: flex;
     flex-direction: column;
@@ -108,7 +123,7 @@ li {
     display: flex;
     justify-content: center;
     flex: 0 1 auto;
-}
+} */
 
 .input-wrapper {
   margin-bottom: 10px;
@@ -125,43 +140,6 @@ label {
   color: red;
   font-size: 25px;
 }
-/* For Tablet View */
-@media screen and (min-device-width: 768px)
-and (max-device-width: 1024px) {
-  .pokemon-list, {
-    width: 400px;
-    height: 400px;
-    background-color: orange;
-    color: black;
-  }
-}
-
-/* For Mobile Portrait View */
-@media screen and (max-device-width: 480px)
-and (orientation: portrait) {
-  .pokemon-list, {
-    width: 200px;
-    height: 200px;
-  }
-}
-
-/* For Mobile Landscape View */
-@media screen and (max-device-width: 640px)
-and (orientation: landscape) {
-  .pokemon-list, {
-    width: 400px;
-    height: 200px;
-  }
-}
-
-/* For Mobile Phones Portrait or Landscape View */
-@media screen and (max-device-width: 640px) {
-  .pokemon-list, {
-    width: 400px;
-    height: 200px;
-  }
-}
-
 #modal-container {
   position: fixed;
     padding: 20px;
@@ -189,38 +167,4 @@ and (orientation: landscape) {
 #modal-container.is-visible {
 
   display: flex;
-}
-
-.modal {
-  margin: auto;
-  display: inline-block;
-  box-sizing: border-box;
-  /* background: inherit; */
-  border: 1px solid white;
-  padding: 15px;
-  width: 100%;
-  max-width: 700px;
-  /* text-align: left; */
-  border-radius: 10px;
-  text-align: center
-  touch-action: none;
-}
-
-.modal-close {
-  /* float: right; */
-  -webkit-appearance: none;
-  border: 0;
-  /* background: white; */
-  color: white;
-  text-decoration: underline;
-}
-
-.modal h1 {
-  margin-top: 0;
-  font-size: 55px;
-}
-
-.modal p {
-  font-size: 30px;
-  margin-bottom: 0;
 }
