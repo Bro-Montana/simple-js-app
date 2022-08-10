@@ -1,24 +1,3 @@
-/* * {
-    box-sizing: border-box;
-} */
-
-/* body { */
-    /* Color Scheme */
-    /* background-color: black;
-    color: white; */
-    font-family: 'Courier New', Courier, monospace;
-    /* font-size: 50px;
-    text-align: center; */
-
-}
-
-/* Styling for title */
-/* h1 {
-    /* font-size: 75px;
-    font-weight: 300;
-    text-decoration: none;
-    text: center;
-} */
 
 .btn {
   font-size: 30px;
@@ -108,22 +87,6 @@ button:hover{
     cursor: pointer;
 }
 
-
-
- /* Styling for unordered list */
-/* ul {
-    list-style-type: none;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding-left: 0;
-}
-
-li {
-    display: flex;
-    justify-content: center;
-    flex: 0 1 auto;
-} */
 
 .input-wrapper {
   margin-bottom: 10px;
