@@ -134,9 +134,9 @@ let pokemonRepository = (function () {
 
 
        // modal nodes
-       let modalTitle = $(".modal-title");
-       let modalBody = $(".modal-body");
-       let modalHeader = $(".modal-header");
+       let modalTitle = $('.modal-title');
+       let modalBody = $('.modal-body');
+       let modalHeader = $('.modal-header');
        // currentModalPokemon = pokemon;
 
        //clear existing content
@@ -145,17 +145,17 @@ let pokemonRepository = (function () {
        modalBody.empty();
 
       // append name to title
-      let nameElement = $("<h1>" + pokemon.name + "</h1>");
+      let nameElement = $('<h1>' + pokemon.name + '</h1>');
 
       // get all details about pokemon
       let frontImage = $('<img class="modal-img" style="width:50%">');
-      frontImage.attr("src", pokemon.frontImage);
+      frontImage.attr('src', pokemon.frontImage);
       let backImage = $('<img class="modal-img" style="width:50%">');
-      backImage.attr("src", pokemon.backImage);
-      let heightElement = $("<p>" + "height: " + pokemon.height + "</p>");
-      let weightElement = $("<p>" + "weight: " + pokemon.weight + "</p>");
-      let typeElement = $("<p>" + "types: " + pokemon.types + "</p>");
-      let abilitiesElement = $("<p>" + "abilities: " + pokemon.abilities + "</p>");
+      backImage.attr('src', pokemon.backImage);
+      let heightElement = $('<p>' + 'height: ' + pokemon.height + '</p>');
+      let weightElement = $('<p>' + 'weight: ' + pokemon.weight + '</p>');
+      let typeElement = $('<p>' + 'types: ' + pokemon.types + '</p>');
+      let abilitiesElement = $('<p>' + 'abilities: ' + pokemon.abilities + '</p>');
 
       // append all pokemon details to modal body
       modalTitle.append(nameElement);
@@ -206,8 +206,8 @@ let pokemonRepository = (function () {
    }
 
    // // event listeners for swiping between data items
-   modalContainer.addEventListener("pointerdown", handleStart);
-   modalContainer.addEventListener("pointerup", handleEnd);
+   modalContainer.addEventListener('pointerdown', handleStart);
+   modalContainer.addEventListener('pointerup', handleEnd);
    // event listener for search bar
     let search_input = document.querySelector('input[type="text"]');
     search_input.addEventListener('input', function() {
