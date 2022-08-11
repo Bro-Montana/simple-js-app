@@ -154,8 +154,8 @@ let pokemonRepository = (function () {
       backImage.attr('src', pokemon.backImage);
       let heightElement = $('<p>' + 'height: ' + pokemon.height + '</p>');
       let weightElement = $('<p>' + 'weight: ' + pokemon.weight + '</p>');
-      let typeElement = $('<p>' + 'types: ' + pokemon.types + '</p>');
-      let abilitiesElement = $('<p>' + 'abilities: ' + pokemon.abilities + '</p>');
+      let typeElement = $('<p>' + 'types: ' + pokemon.types.map(t => t.type.name).join(', ') + '</p>');
+      let abilitiesElement = $('<p>' + 'abilities: ' + pokemon.abilities.map(a => a.ability.name).join(', ') + '</p>');
 
       // append all pokemon details to modal body
       modalTitle.append(nameElement);
